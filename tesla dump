@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+
+import flipper
+import time
+
+# Connect to Flipper device
+device = flipper.Flipper(interface="UART")
+
+# Send the unlock command to the Tesla NFC door reader
+device.nfc_write("unlock")
+
+# Wait for response from the door reader
+response = device.nfc_read()
+
+# Check if the door is unlocked
+if response == "unlocked":
+    print("The Tesla door is unlocked.")
+else:
+    print("The Tesla door could not be unlocked.")
+
+# Disconnect from the Flipper device
+device.disconnect()
